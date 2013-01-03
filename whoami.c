@@ -1,6 +1,7 @@
 #include <pwd.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include "coreutils.h"
 struct passwd *pwd;
 uid_t uid;
 int main(){
