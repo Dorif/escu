@@ -1,0 +1,10 @@
+bin_PROGRAMS=link mv true whoami false ls pwd unlink yes
+link_SOURCES=src/link.c 
+mv_SOURCES=src/mv.c 
+true_SOURCES=src/true.c 
+whoami_SOURCES=src/whoami.c 
+false_SOURCES=src/false.c 
+ls_SOURCES=src/ls.c 
+pwd_SOURCES=src/pwd.c 
+unlink_SOURCES=src/unlink.c
+yes_SOURCES=src/yes.c
