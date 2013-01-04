@@ -10,3 +10,4 @@ all:
 	cc -o bin/yes src/yes.c
 clean:
 	rm -rf bin/*
+	cp LICENSE bin/
