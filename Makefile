@@ -1,4 +1,5 @@
 all:
+	cc -o bin/chroot src/chroot.c
 	cc -o bin/false src/false.c
 	cc -o bin/link src/link.c
 	cc -o bin/ls src/ls.c
