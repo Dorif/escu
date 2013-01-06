@@ -5,7 +5,9 @@ all:
 	cc -o bin/ls src/ls.c
 	cc -o bin/mv src/mv.c
 	cc -o bin/pwd src/pwd.c
+	cc -o bin/test src/test.c
 	cc -o bin/true src/true.c
+	cc -o bin/tty src/tty.c
 	cc -o bin/unlink src/unlink.c
 	cc -o bin/whoami src/whoami.c
 	cc -o bin/yes src/yes.c
