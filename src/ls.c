@@ -75,8 +75,26 @@ void ls(DIR *d){
 	while((ent=readdir(d))!=0){
 	stat(ent->d_name,&fs);
 	if(shr){
-		char *rights=itoa(fs.st_mode,8);
-		write(STDOUT_FILENO,rights,strlen(rights));
+		if(fs.st_mode & S_IFDIR)write(STDOUT_FILENO,"d",1);
+		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IRUSR)write(STDOUT_FILENO,"r",1);
+		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IWUSR)write(STDOUT_FILENO,"w",1);
+		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IXUSR)write(STDOUT_FILENO,"x",1);
+		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IRGRP)write(STDOUT_FILENO,"r",1);
+		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IWGRP)write(STDOUT_FILENO,"w",1);
+		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IXGRP)write(STDOUT_FILENO,"x",1);
+		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IROTH)write(STDOUT_FILENO,"r",1);
+		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IWOTH)write(STDOUT_FILENO,"w",1);
+		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IXOTH)write(STDOUT_FILENO,"x",1);
+		else write(STDOUT_FILENO,"-",1);
 		write(STDOUT_FILENO," ",1);
 	}
 	if(!nsu&shu){
