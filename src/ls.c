@@ -5,7 +5,6 @@
 #include <grp.h>
 #include <pwd.h>
 #include <dirent.h>
-#include <string.h>
 #include <getopt.h>
 #include "coreutils.h"
 void ls(DIR *d);
@@ -112,6 +111,8 @@ void ls(DIR *d){
 	if(S_ISDIR(fs.st_mode))write(STDOUT_FILENO,"/",1);
 	if(S_ISLNK(fs.st_mode))write(STDOUT_FILENO,"@",1);
 	if(S_ISFIFO(fs.st_mode))write(STDOUT_FILENO,"|",1);
+	if(S_IXUSR & fs.st_mode)write(STDOUT_FILENO,"*",1);
+	if(S_IFSOCK & fs.st_mode)write(STDOUT_FILENO,"=",1);
 	}
 	if(wre)write(STDOUT_FILENO,"\n",1);
 	else write(STDOUT_FILENO,"\t",1);
