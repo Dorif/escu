@@ -2,9 +2,30 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <string.h>
+#include "coreutils.h"
 int ch;
 short sel=0;
 struct stat fs;
+char help_str[]="-b pathname True if pathname resolves to en existing directory entry for a block special file. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that is not a block special file.\n"
+"-c pathname True if pathname resolves to an existing directory entry for a character special file. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that is not a character special file.\n"
+"-d pathname True if pathname resolves to an existing directory entry for a directory. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that is not a directory.\n"
+"-e pathname True if pathname resolves to an existing directory entry. False if pathname cannot be resolved.\n"
+"-f pathname True if pathname resolves to an existing directory entry for a regular file. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that is not a regular file.\n"
+"-g pathname True if pathname resolves to an existing directory entry for a file that has its set-group-ID flag set. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that does not have its set-group-ID flag set.\n"
+"-h pathname or -L pathname True if pathname resolves to an existing directory entry for a symbolic link. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that is not a symbolic link. If the final component of pathname is a symbolic link, that symbolic link is not followed.\n"
+"-n string True if the length of string is non-zero; otherwise, false.\n"
+"-p pathname True if pathname resolves to an existing directory entry for a FIFO. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that is not a FIFO.\n"
+"-r pathname True if pathname resolves to an existing directory entry for a file for which permission to read from the file will be granted. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file for which permission to read from the file will not be granted.\n"
+"-S pathname True if pathname resolves to an existing directory entry for a socket. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that is not a socket.\n"
+"-s pathname True if pathname resolves to an existing directory entry for a file that has a size greater than zero. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that does not have a size greater than zero.\n"
+"-t file_descriptor True if file descriptor number file_descriptor is open and is associated with a terminal. False if file_descriptor is not a valid file descriptor number, or if file descriptor number file_descriptor is not open, or if it is open but is not associated with a terminal.(Not implemented yet!)\n"
+"-u pathname True if pathname resolves to an existing directory entry for a file that has its set-user-ID flag set. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that does not have its set-user-ID flag set.\n"
+"-w pathname True if pathname resolves to an existing directory entry for a file for which permission to write to the file will be granted. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file for which permission to write to the file will not be granted.\n"
+"-x pathname True if pathname resolves to an existing directory entry for a file for which permission to execute the file (or search it, if it is a directory) will be granted. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file for which permission to execute (or search) the file will not be granted.\n"
+"-z string True if the length of string string is zero; otherwise, false.\n"
+"string True if the string string is not the null string; otherwise, false.\n"
+"s1 = s2 True if the strings s1 and s2 are identical; otherwise, false.\n"
+"s1 != s2 True if the strings s1 and s2 are not identical; otherwise, false.\n";
 int main(int argc, char *argv[]){
 	while((ch=getopt(argc, argv, "bcdefgkLprsStuwxznh"))!= -1){
 	switch (ch) {
@@ -69,6 +90,7 @@ int main(int argc, char *argv[]){
 	argc-=optind;
 	switch (sel) {
 		case 0:{
+			if(argc==0)usage(help_str);
 			if(argc==1){
 				if(strlen(argv[0]))_exit(0);
 				else _exit(1);
@@ -84,7 +106,6 @@ int main(int argc, char *argv[]){
 				}
 			}
 		}
-			break;
 		case 1:{
 			if(stat(argv[0], &fs))_exit(1);
 			if(S_ISBLK(fs.st_mode))_exit(0);
