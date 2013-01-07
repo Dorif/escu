@@ -81,20 +81,38 @@ void ls(DIR *d){
 		else write(STDOUT_FILENO,"-",1);
 		if(fs.st_mode & S_IWUSR)write(STDOUT_FILENO,"w",1);
 		else write(STDOUT_FILENO,"-",1);
-		if(fs.st_mode & S_IXUSR)write(STDOUT_FILENO,"x",1);
-		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IXUSR){
+			if(fs.st_mode & S_ISUID)write(STDOUT_FILENO,"s",1);
+			else write(STDOUT_FILENO,"x",1);
+		}
+		else {
+			if(fs.st_mode & S_ISUID)write(STDOUT_FILENO,"S",1);
+			else write(STDOUT_FILENO,"-",1);
+		}
 		if(fs.st_mode & S_IRGRP)write(STDOUT_FILENO,"r",1);
 		else write(STDOUT_FILENO,"-",1);
 		if(fs.st_mode & S_IWGRP)write(STDOUT_FILENO,"w",1);
 		else write(STDOUT_FILENO,"-",1);
-		if(fs.st_mode & S_IXGRP)write(STDOUT_FILENO,"x",1);
-		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IXGRP){
+			if(fs.st_mode & S_ISUID)write(STDOUT_FILENO,"s",1);
+			else write(STDOUT_FILENO,"x",1);
+		}
+		else {
+			if(fs.st_mode & S_ISUID)write(STDOUT_FILENO,"S",1);
+			else write(STDOUT_FILENO,"-",1);
+		}
 		if(fs.st_mode & S_IROTH)write(STDOUT_FILENO,"r",1);
 		else write(STDOUT_FILENO,"-",1);
 		if(fs.st_mode & S_IWOTH)write(STDOUT_FILENO,"w",1);
 		else write(STDOUT_FILENO,"-",1);
-		if(fs.st_mode & S_IXOTH)write(STDOUT_FILENO,"x",1);
-		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IXOTH){
+			if((fs.st_mode & S_IFDIR) & (fs.st_mode & S_ISVTX))write(STDOUT_FILENO,"t",1);
+			else write(STDOUT_FILENO,"x",1);
+		}
+		else {
+			if((fs.st_mode & S_IFDIR) & (fs.st_mode & S_ISVTX))write(STDOUT_FILENO,"T",1);
+			else write(STDOUT_FILENO,"-",1);
+		}
 		write(STDOUT_FILENO," ",1);
 	}
 	if(!nsu&shu){
