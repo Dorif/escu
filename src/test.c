@@ -68,7 +68,22 @@ int main(int argc, char *argv[]){
 	argv+=optind;
 	argc-=optind;
 	switch (sel) {
-		case 0:
+		case 0:{
+			if(argc==1){
+				if(strlen(argv[0]))_exit(0);
+				else _exit(1);
+			}
+			if(argc==3){
+				if(!(strcoll(argv[1],"="))){
+					if(strcoll(argv[0],argv[2]))_exit(1);
+					else _exit(0);
+				}
+				if(!(strcoll(argv[1],"!="))){
+					if(strcoll(argv[0],argv[2]))_exit(0);
+					else _exit(1);
+				}
+			}
+		}
 			break;
 		case 1:{
 			if(stat(argv[0], &fs))_exit(1);
