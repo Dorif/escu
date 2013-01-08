@@ -16,7 +16,7 @@ int main(int argc,char** argv){
 	while((ch=getopt(argc, argv, "amnrsv"))!= -1){
 	switch (ch) {
 		case 'm':
-			m-1;
+			m=1;
 			break;
 		case 'n':
 			n=1;
