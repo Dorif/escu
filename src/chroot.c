@@ -10,14 +10,14 @@ int main(int argc, char** argv){
 		errno=EPERM;
 		ferr();
 	}
-	if(chroot(argv[1])==-1 || chdir("/") != 0)ferr();
+	if(chroot(argv[1]) || chdir("/"))ferr();
 	if(argv[2]){
-		if(execvp(argv[2], &argv[2])==-1)ferr();
+		if(execvp(argv[2], &argv[2]))ferr();
 	}
 	else {
 		char *shell;
 		if((shell=getenv("SHELL"))==NULL || *shell == '\0')shell="/bin/sh";
-		if(execlp(shell, shell, "-i", (char *)NULL)==-1)ferr();
+		if(execlp(shell, shell, "-i", (char *)NULL))ferr();
 	}
 	_exit(0);
 }

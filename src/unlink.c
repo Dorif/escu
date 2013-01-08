@@ -5,6 +5,6 @@ int ch, filenum;
 char help_str[]="Usage: unlink [FILES]\n";
 int main(int argc, char** argv){
 	if(argc==1)usage(help_str);
-	for(filenum=0;filenum<argc;++filenum)if(unlink(argv[filenum])!=0)ferr();
+	for(filenum=0;filenum<argc;++filenum)if(unlink(argv[filenum]))ferr();
 	_exit(0);
 }

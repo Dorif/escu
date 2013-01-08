@@ -28,13 +28,13 @@ int main(int argc, char** argv){
 	argc-=optind;
 	if(argc==0)usage(help_str);
 	if(ask){
-		if(access(argv[0], 00)!=0)ferr();
+		if(access(argv[0], F_OK))ferr();
 		printf("You really want to move %s file to %s? Type Y or y if yes.\n", argv[0], argv[1]);
 		int responce;
 		responce=getchar();
-		if((responce=='y'||responce=='Y')&&(rename(argv[0], argv[1])!=0))ferr();
+		if((responce=='y'||responce=='Y')&&(rename(argv[0], argv[1])))ferr();
 		else exit(0);
 	}
-	else if(rename(argv[0], argv[1])!=0)ferr();
+	else if(rename(argv[0], argv[1]))ferr();
 	exit(0);
 }

@@ -66,13 +66,13 @@ int main(int argc, char** argv){
 	dir=opendir(argv[filenum]);
 	ls(dir);
 	}
-write(STDOUT_FILENO,"\n",1);
+	write(STDOUT_FILENO,"\n",1);
 	_exit(0);
 }
 void ls(DIR *d){
 	struct stat fs;
 	struct dirent *ent;
-	while((ent=readdir(d))!=0){
+	while(ent=readdir(d)){
 	stat(ent->d_name,&fs);
 	if(shr){
 		if(fs.st_mode & S_IFDIR)write(STDOUT_FILENO,"d",1);
@@ -128,12 +128,12 @@ void ls(DIR *d){
 		write(STDOUT_FILENO," ",1);
 		}
 	if(shs){
-		char *size=itoa(fs.st_size,10);
+		char *size=itoa(fs.st_size);
 		write(STDOUT_FILENO,size,strlen(size));
 		write(STDOUT_FILENO," ",1);
 	}
 	if(shi){
-		char *inode=itoa(fs.st_ino,10);
+		char *inode=itoa(fs.st_ino);
 		write(STDOUT_FILENO,inode,strlen(inode));
 		write(STDOUT_FILENO," ",1);
 	}

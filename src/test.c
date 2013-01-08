@@ -183,8 +183,8 @@ int main(int argc, char *argv[]){
 			else _exit(1);
 		}
 		case 17:{
-			if(strlen(argv[0])==0)_exit(0);
-			else _exit(1);
+			if(strlen(argv[0]))_exit(1);
+			else _exit(0);
 		}
 		case 18:{
 			if(strlen(argv[0]))_exit(0);
