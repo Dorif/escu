@@ -8,7 +8,7 @@
 #include "coreutils.h"
 void ls(DIR *d);
 short shu=0, shg=0, shs=0, shr=0, smt=0, nsg=0, nsu=0, shi=0, sht=0, wre=0, shc=0, shd=0, shh=0, shdd=0;
-//shg -SHow Group, shu - SHow User, nsu - No Show User, nsg - No Show Group, shi - SHow Inode, shs - SHow Size, smt - Show Modification Time, shr - SHow Rights, wre - WRite End of line, shc - show Ctime, shd - SHow Directoty.
+//shg -SHow Group, shu - SHow User, nsu - No Show User, nsg - No Show Group, shi - SHow Inode, shs - SHow Size, smt - Show Modification Time, shr - SHow Rights, wre - WRite End of line, shc - show Ctime, shd - SHow Directoty, shh =SHow Hidden, shdd - SHow Dot-Dot.
 int ch, filenum;//filenum- FILE NUMber;
 char help_str[]="ls [-GFil][-go][files]\n"
 "-l Output in long format.\n" 
