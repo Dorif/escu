@@ -4,6 +4,7 @@ all:
 	$(CC) -o bin/false src/false.c
 	$(CC) -o bin/head src/head.c
 	$(CC) -o bin/link src/link.c
+	$(CC) -o bin/logname src/logname.c
 	$(CC) -o bin/ls src/ls.c
 	$(CC) -o bin/mv src/mv.c
 	$(CC) -o bin/pwd src/pwd.c
@@ -12,7 +13,6 @@ all:
 	$(CC) -o bin/tty src/tty.c
 	$(CC) -o bin/uname src/uname.c
 	$(CC) -o bin/unlink src/unlink.c
-	$(CC) -o bin/whoami src/whoami.c
 	$(CC) -o bin/yes src/yes.c
 clean:
 	rm -rf bin/*
