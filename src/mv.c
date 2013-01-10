@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <getopt.h>
 #include "coreutils.h"
 char help_str[]="Usage: mv [-if] source_file target_file\n"
 "mv [-if] source_file target_dir\n"

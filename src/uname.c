@@ -1,6 +1,5 @@
 #include <unistd.h>
 #include <sys/utsname.h>
-#include <getopt.h>
 #include "coreutils.h"
 struct utsname unm;
 int ch;

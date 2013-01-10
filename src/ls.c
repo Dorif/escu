@@ -5,7 +5,6 @@
 #include <grp.h>
 #include <pwd.h>
 #include <dirent.h>
-#include <getopt.h>
 #include "coreutils.h"
 void ls(DIR *d);
 short shu=0, shg=0, shs=0, shr=0, smt=0, nsg=0, nsu=0, shi=0, sht=0, wre=0;

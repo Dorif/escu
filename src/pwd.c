@@ -1,7 +1,6 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <stdlib.h>
-#include <getopt.h>
 #include "coreutils.h"
 char help_str[]="Usage: pwd [-L|-P]\n",*p;
 int ch;

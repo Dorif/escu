@@ -2,6 +2,7 @@ CC=cc
 all:
 	$(CC) -o bin/chroot src/chroot.c
 	$(CC) -o bin/false src/false.c
+	$(CC) -o bin/head src/head.c
 	$(CC) -o bin/link src/link.c
 	$(CC) -o bin/ls src/ls.c
 	$(CC) -o bin/mv src/mv.c
