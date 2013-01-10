@@ -1,2 +1,3 @@
  "test" implementation isn't complete at the moment.
  "ls" implementation isn't complete at the moment.
+ mkfifo not fully implemented at the moment.

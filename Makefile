@@ -6,6 +6,7 @@ all:
 	$(CC) -o bin/link src/link.c
 	$(CC) -o bin/logname src/logname.c
 	$(CC) -o bin/ls src/ls.c
+	$(CC) -o bin/mkfifo src/mkfifo.c
 	$(CC) -o bin/mv src/mv.c
 	$(CC) -o bin/pwd src/pwd.c
 	$(CC) -o bin/test src/test.c
