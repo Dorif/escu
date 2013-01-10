@@ -7,8 +7,8 @@
 #include <dirent.h>
 #include "coreutils.h"
 void ls(DIR *d);
-short shu=0, shg=0, shs=0, shr=0, smt=0, nsg=0, nsu=0, shi=0, sht=0, wre=0;
-//shg -SHow Group, shu - SHow User, nsu - No Show User, nsg - No Show Group, shi - SHow Inode, shs - SHow Size, smt - Show Modification Time, shr - SHow Rights, wre - WRite End of line.
+short shu=0, shg=0, shs=0, shr=0, smt=0, nsg=0, nsu=0, shi=0, sht=0, wre=0, shc=0, shd=0, shh=0, shdd=0;
+//shg -SHow Group, shu - SHow User, nsu - No Show User, nsg - No Show Group, shi - SHow Inode, shs - SHow Size, smt - Show Modification Time, shr - SHow Rights, wre - WRite End of line, shc - show Ctime, shd - SHow Directoty.
 int ch, filenum;//filenum- FILE NUMber;
 char help_str[]="ls [-GFil][-go][files]\n"
 "-l Output in long format.\n" 
@@ -17,9 +17,13 @@ char help_str[]="ls [-GFil][-go][files]\n"
 "-g Same as -l, but owner shall not be written.\n"
 "-i For each file, write the file's file serial number.\n"
 "-F Write / after each directory, a | after each FIFO, and @ after each symbolic link.\n"
-"-1 Force output to be one entry per line.\n";
+"-1 Force output to be one entry per line.\n"
+"-c Use time of last modification of the file status information instead of last modification of the file itself for writing.\n"
+"-p Write / after each filename if that file is a directory.\n"
+"-A Write out all directory entries, including those whose names begin with a '.' but excluding the entries dot and dot-dot.\n"
+"-a Write out all directory entries, including those whose names begin with a '.'.\n";
 int main(int argc, char** argv){
-	while((ch=getopt(argc, argv, "loGFgi1"))!= -1){
+	while((ch=getopt(argc, argv, "loGFgi1cpaA"))!= -1){
         switch (ch) {
 		case 'l':
 			shr=1;
@@ -51,6 +55,19 @@ int main(int argc, char** argv){
 		case '1':
 			wre=1;
 			break;
+		case 'c':
+			shc=1;
+			break;
+		case 'p':
+			shd=1;
+			break;
+		case 'a':
+			shdd=1;
+			shh=1;
+			break;
+		case 'A':
+			shh=1;
+			break;
 		default: usage(help_str);
 		}
 	}
@@ -73,6 +90,8 @@ void ls(DIR *d){
 	struct dirent *ent;
 	while(ent=readdir(d)){
 	stat(ent->d_name,&fs);
+	if(!shh & !strncmp(ent->d_name, ".",1))continue;
+	if(!shdd & (!strcmp(ent->d_name, ".") || !strcmp(ent->d_name, "..")))continue;
 	if(shr){
 		if(fs.st_mode & S_IFDIR)write(STDOUT_FILENO,"d",1);
 		else write(STDOUT_FILENO,"-",1);
@@ -137,13 +156,15 @@ void ls(DIR *d){
 		write(STDOUT_FILENO," ",1);
 	}
 	if(smt){
-		char *mt=ctime(&fs.st_mtime);
+		char *mt;
+		if(shc)mt=ctime(&fs.st_ctime);
+		else mt=ctime(&fs.st_mtime);
 		write(STDOUT_FILENO,mt,strlen(mt)-1);
 		write(STDOUT_FILENO," ",1);
 	}
 	write(STDOUT_FILENO, ent->d_name, strlen(ent->d_name));
+	if((sht || shd) & S_ISDIR(fs.st_mode))write(STDOUT_FILENO,"/",1);
 	if(sht){
-	if(S_ISDIR(fs.st_mode))write(STDOUT_FILENO,"/",1);
 	if(S_ISLNK(fs.st_mode))write(STDOUT_FILENO,"@",1);
 	if(S_ISFIFO(fs.st_mode))write(STDOUT_FILENO,"|",1);
 	if(S_IXUSR & fs.st_mode)write(STDOUT_FILENO,"*",1);
