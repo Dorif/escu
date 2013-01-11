@@ -7,8 +7,8 @@
 #include <dirent.h>
 #include "coreutils.h"
 void ls(DIR *d);
-short shu=0, shg=0, shs=0, shr=0, smt=0, nsg=0, nsu=0, shi=0, sht=0, wre=0, shc=0, shd=0, shh=0, shdd=0;
-//shg -SHow Group, shu - SHow User, nsu - No Show User, nsg - No Show Group, shi - SHow Inode, shs - SHow Size, smt - Show Modification Time, shr - SHow Rights, wre - WRite End of line, shc - show Ctime, shd - SHow Directoty, shh =SHow Hidden, shdd - SHow Dot-Dot.
+short shu=0, shg=0, shs=0, shr=0, smt=0, nsg=0, nsu=0, shi=0, sht=0, wre=0, shc=0, shd=0, shh=0, shdd=0, sat=0, sui=0, sgi=0;
+//shg -SHow Group, shu - SHow User, nsu - No Show User, nsg - No Show Group, shi - SHow Inode, shs - SHow Size, smt - Show Modification Time, shr - SHow Rights, wre - WRite End of line, shc - show Ctime, shd - SHow Directoty, shh =SHow Hidden, shdd - SHow Dot-Dot, sat - Show Access Time, sui - Show User Id, sgi - Show Group Id.
 int ch, filenum;//filenum- FILE NUMber;
 char help_str[]="ls [-GFil][-go][files]\n"
 "-l Output in long format.\n" 
@@ -21,14 +21,24 @@ char help_str[]="ls [-GFil][-go][files]\n"
 "-c Use time of last modification of the file status information instead of last modification of the file itself for writing.\n"
 "-p Write / after each filename if that file is a directory.\n"
 "-A Write out all directory entries, including those whose names begin with a '.' but excluding the entries dot and dot-dot.\n"
-"-a Write out all directory entries, including those whose names begin with a '.'.\n";
+"-a Write out all directory entries, including those whose names begin with a '.'.\n"
+"-u Use time of last access instead of last modification of the file for writing.\n"
+"-n The same as -l, except that the owner's UID and GID numbers shall be written, rather than the associated character strings.\n";
 int main(int argc, char** argv){
-	while((ch=getopt(argc, argv, "loGFgi1cpaA"))!= -1){
+	while((ch=getopt(argc, argv, "loGFgi1cpaAun"))!= -1){
         switch (ch) {
 		case 'l':
 			shr=1;
 			shu=1;
 			shg=1;
+			shs=1;
+			smt=1;
+			wre=1;
+			break;
+		case 'n':
+			shr=1;
+			sui=1;
+			sgi=1;
 			shs=1;
 			smt=1;
 			wre=1;
@@ -67,6 +77,9 @@ int main(int argc, char** argv){
 			break;
 		case 'A':
 			shh=1;
+			break;
+		case 'u':
+			sat=1;
 			break;
 		default: usage(help_str);
 		}
@@ -145,6 +158,18 @@ void ls(DIR *d){
 		write(STDOUT_FILENO,grp->gr_name,strlen(grp->gr_name));
 		write(STDOUT_FILENO," ",1);
 		}
+	if(!nsu&sui){
+		char *uid;
+		uid=itoa(fs.st_uid);
+		write(STDOUT_FILENO,uid, strlen(uid));
+		write(STDOUT_FILENO," ",1);
+		}
+	if(!nsg&sgi){
+		char *gid;
+		gid=itoa(fs.st_gid);
+		write(STDOUT_FILENO,gid,strlen(gid));
+		write(STDOUT_FILENO," ",1);
+		}
 	if(shs){
 		char *size=itoa(fs.st_size);
 		write(STDOUT_FILENO,size,strlen(size));
@@ -158,7 +183,8 @@ void ls(DIR *d){
 	if(smt){
 		char *mt;
 		if(shc)mt=ctime(&fs.st_ctime);
-		else mt=ctime(&fs.st_mtime);
+		else if(sat) mt=ctime(&fs.st_atime);
+			else mt=ctime(&fs.st_mtime);
 		write(STDOUT_FILENO,mt,strlen(mt)-1);
 		write(STDOUT_FILENO," ",1);
 	}
