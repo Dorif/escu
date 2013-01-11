@@ -1,7 +1,6 @@
 #include <unistd.h>
 #include <libgen.h>
 #include "coreutils.h"
-int filenum=0;
 char *base, help_str[]="Usage: basename string\n"
 "Returns non-directory portion of a pathname.\n";
 int main(int argc, char** argv){

@@ -1,7 +1,6 @@
 #include <unistd.h>
 #include <libgen.h>
 #include "coreutils.h"
-int filenum=0;
 char *dir, help_str[]="Usage: dirname string\n"
 "Returns the directory portion of a pathname.\n";
 int main(int argc, char** argv){
