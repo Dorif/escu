@@ -7,8 +7,8 @@
 #include <dirent.h>
 #include "coreutils.h"
 void ls(DIR *d);
-short shu=0, shg=0, shs=0, shr=0, smt=0, nsg=0, nsu=0, shi=0, sht=0, wre=0, shc=0, shd=0, shh=0, shdd=0, sat=0, sui=0, sgi=0;
-//shg -SHow Group, shu - SHow User, nsu - No Show User, nsg - No Show Group, shi - SHow Inode, shs - SHow Size, smt - Show Modification Time, shr - SHow Rights, wre - WRite End of line, shc - show Ctime, shd - SHow Directoty, shh =SHow Hidden, shdd - SHow Dot-Dot, sat - Show Access Time, sui - Show User Id, sgi - Show Group Id.
+short shu=0, shg=0, shs=0, shr=0, smt=0, nsg=0, nsu=0, shi=0, sht=0, wre=0, shc=0, shd=0, shh=0, shdd=0, sat=0, wrc=0, sui=0, sgi=0;
+//shg -SHow Group, shu - SHow User, nsu - No Show User, nsg - No Show Group, shi - SHow Inode, shs - SHow Size, smt - Show Modification Time, shr - SHow Rights, wre - WRite End of line, shc - show Ctime, shd - SHow Directoty, shh =SHow Hidden, shdd - SHow Dot-Dot, sat - Show Access Time, wrc - WRite Comma, sui - Show User Id, sgi - Show Group Id.
 int ch, filenum;//filenum- FILE NUMber;
 char help_str[]="ls [-GFil][-go][files]\n"
 "-l Output in long format.\n" 
@@ -23,9 +23,10 @@ char help_str[]="ls [-GFil][-go][files]\n"
 "-A Write out all directory entries, including those whose names begin with a '.' but excluding the entries dot and dot-dot.\n"
 "-a Write out all directory entries, including those whose names begin with a '.'.\n"
 "-u Use time of last access instead of last modification of the file for writing.\n"
+"-m Stream output format; list files across the page, separated by commas.\n"
 "-n The same as -l, except that the owner's UID and GID numbers shall be written, rather than the associated character strings.\n";
 int main(int argc, char** argv){
-	while((ch=getopt(argc, argv, "loGFgi1cpaAun"))!= -1){
+	while((ch=getopt(argc, argv, "loGFgi1cpaAumn"))!= -1){
         switch (ch) {
 		case 'l':
 			shr=1;
@@ -80,6 +81,9 @@ int main(int argc, char** argv){
 			break;
 		case 'u':
 			sat=1;
+			break;
+		case 'm':
+			wrc=1;
 			break;
 		default: usage(help_str);
 		}
@@ -196,7 +200,11 @@ void ls(DIR *d){
 	if(S_IXUSR & fs.st_mode)write(STDOUT_FILENO,"*",1);
 	if(S_IFSOCK & fs.st_mode)write(STDOUT_FILENO,"=",1);
 	}
-	if(wre)write(STDOUT_FILENO,"\n",1);
-	else write(STDOUT_FILENO,"\t",1);
+	struct dirent *chk;
+	if(chk=readdir(d)){
+		if(wre)write(STDOUT_FILENO,"\n",1);
+		else if(wrc)write(STDOUT_FILENO,", ",2);
+			else write(STDOUT_FILENO,"\t",1);
+	}
 	}
 }
