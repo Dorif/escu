@@ -1,3 +1,1 @@
- "test" implementation isn't complete at the moment.
- "ls" implementation isn't complete at the moment.
- mkfifo not fully implemented at the moment.
+test, ls, mkfifo and basename not fully implemented at the moment.

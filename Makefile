@@ -1,6 +1,8 @@
 CC=cc
 all:
+	$(CC) -o bin/basename src/basename.c
 	$(CC) -o bin/chroot src/chroot.c
+	$(CC) -o bin/dirname src/dirname.c
 	$(CC) -o bin/false src/false.c
 	$(CC) -o bin/head src/head.c
 	$(CC) -o bin/link src/link.c
