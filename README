@@ -1,2 +1,4 @@
 1) What is escu?
-Escu is abbreviation from Extremelly Small CreUtils. So, it is complex of the most basic utilites, each UNIX must have.
+Escu is abbreviation from Extremelly Small CoreUtils. So, it is complex of the most basic utilites, each UNIX must have.
+2) What are purposes of this project?
+Portability, POSIX compatibility, simplicity of source code(for educational purposes).
