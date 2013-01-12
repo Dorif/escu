@@ -18,7 +18,7 @@ char help_str[]="-b pathname True if pathname resolves to en existing directory 
 "-r pathname True if pathname resolves to an existing directory entry for a file for which permission to read from the file will be granted. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file for which permission to read from the file will not be granted.\n"
 "-S pathname True if pathname resolves to an existing directory entry for a socket. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that is not a socket.\n"
 "-s pathname True if pathname resolves to an existing directory entry for a file that has a size greater than zero. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that does not have a size greater than zero.\n"
-"-t file_descriptor True if file descriptor number file_descriptor is open and is associated with a terminal. False if file_descriptor is not a valid file descriptor number, or if file descriptor number file_descriptor is not open, or if it is open but is not associated with a terminal.(Not implemented yet!)\n"
+"-t file_descriptor True if file descriptor number file_descriptor is open and is associated with a terminal. False if file_descriptor is not a valid file descriptor number, or if file descriptor number file_descriptor is not open, or if it is open but is not associated with a terminal.\n"
 "-u pathname True if pathname resolves to an existing directory entry for a file that has its set-user-ID flag set. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that does not have its set-user-ID flag set.\n"
 "-w pathname True if pathname resolves to an existing directory entry for a file for which permission to write to the file will be granted. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file for which permission to write to the file will not be granted.\n"
 "-x pathname True if pathname resolves to an existing directory entry for a file for which permission to execute the file (or search it, if it is a directory) will be granted. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file for which permission to execute (or search) the file will not be granted.\n"
@@ -166,6 +166,14 @@ int main(int argc, char *argv[]){
 			else _exit(1);
 		}
 		case 13:{
+			if(argc){
+				if(isatty(atoi(argv[0])))_exit(0);
+				else _exit(1);
+			}
+			else {
+				if(isatty(STDOUT_FILENO))_exit(0);
+				else _exit(1);
+			}
 		}
 		case 14:{
 			if(stat(argv[0], &fs))_exit(1);
