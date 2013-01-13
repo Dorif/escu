@@ -45,19 +45,19 @@ int main(int argc,char** argv){
 	if(uname(&unm))ferr(progname);
 	if(s || (!s & !n & !r & !v & !m)){
 		printf("%s",unm.sysname);
-		if(n || r || v || m)printf(" ");
+		if(n || r || v || m)putchar(' ');
 	}
 	if(n){
 		printf("%s",unm.nodename);
-		if(r || v || m)printf(" ");
+		if(r || v || m)putchar(' ');
 	}
 	if(r){
 		printf("%s",unm.release);
-		if(v || m)printf(" ");
+		if(v || m)putchar(' ');
 	}
 	if(v){
 		printf("%s",unm.version);
-		if(m)printf(" ");
+		if(m)putchar(' ');
 	}
 	if(m)printf("%s",unm.machine);
 	putchar('\n');
