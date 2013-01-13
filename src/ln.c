@@ -4,7 +4,12 @@
 #include "coreutils.h"
 short force=0, symbolic=0, L=0, P=0;
 int ch;
-char help_str[]="";
+char help_str[]="Usage: ln [-fs] [-L|-P] source_file target_file\n"
+"ln [-fs] [-L|-P] source_file... target_dir\n"
+"-f Force existing destination pathnames to be removed to allow the link.\n"
+"-L For each source_file operand that names a file of type symbolic link, create a hardlink to the file referenced by the symbolic link.\n"
+"-P For each source_file operand that names a file of type symbolic link, create a hardlink to the symbolic link itself.\n"
+"-s Create symbolic links instead of hard links. If the -s option is specified, the -L and -P options are ignored.\n";
 int main(int argc, char** argv){
 	while((ch=getopt(argc, argv, "fsLP"))!= -1){
 	switch (ch) {

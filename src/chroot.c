@@ -5,16 +5,21 @@
 char help_str[]="Usage: chroot new_root [command]\n"
 "You must be root to use chroot.\n";
 int main(int argc, char** argv){
+/*If even new root directory isn't specified - show usage info and terminate the program*/
 	if(argc==1)usage(help_str);
+/*Only root can use chroot command. Root UID is always 0.*/
 	if(getuid()!=0){
 		errno=EPERM;
 		ferr();
 	}
+/*if chroot impossible - write error message to stderr and terminate the program*/
 	if(chroot(argv[1]) || chdir("/"))ferr();
 	if(argv[2]){
+/*If program, specified in second argument cannot be found or executed in new root - write error message and terminate the program.*/
 		if(execvp(argv[2], &argv[2]))ferr();
 	}
 	else {
+/*If no command is specified in second argument - try to start shell.*/
 		char *shell;
 		if((shell=getenv("SHELL"))==NULL || *shell == '\0')shell="/bin/sh";
 		if(execlp(shell, shell, "-i", (char *)NULL))ferr();
