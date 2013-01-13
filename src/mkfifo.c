@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include "coreutils.h"
-char help_str[]="Usage: mkfifo [-f rights] PATHS\n";
+char help_str[]="Usage: mkfifo [-f rights] PATHS",
+progname[]="mkfifo";
 int ch;
 short f=0, rights=644, filenum=0;
 int main(int argc, char** argv){
@@ -22,7 +23,7 @@ int main(int argc, char** argv){
 		filenum=1;
 	}
 	for(;filenum<argc;++filenum){
-		if(mkfifo(argv[filenum],rights))ferr();
+		if(mkfifo(argv[filenum],rights))ferr(progname);
 	}
 	_exit(0);
 }

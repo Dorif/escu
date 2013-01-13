@@ -5,6 +5,7 @@
 #include <grp.h>
 #include <pwd.h>
 #include <dirent.h>
+#include <string.h>
 #include "coreutils.h"
 void ls(DIR *d);
 short shu=0, shg=0, shs=0, shr=0, smt=0, nsg=0, nsu=0, shi=0, sht=0, wre=0, shc=0, shd=0, shh=0, shdd=0, sat=0, wrc=0, sui=0, sgi=0;
@@ -24,7 +25,7 @@ char help_str[]="ls [-GFil][-go][files]\n"
 "-a Write out all directory entries, including those whose names begin with a '.'.\n"
 "-u Use time of last access instead of last modification of the file for writing.\n"
 "-m Stream output format; list files across the page, separated by commas.\n"
-"-n The same as -l, except that the owner's UID and GID numbers shall be written, rather than the associated character strings.\n";
+"-n The same as -l, except that the owner's UID and GID numbers shall be written, rather than the associated character strings.";
 int main(int argc, char** argv){
 	while((ch=getopt(argc, argv, "loGFgi1cpaAumn"))!= -1){
         switch (ch) {

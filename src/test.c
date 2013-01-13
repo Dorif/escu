@@ -25,7 +25,7 @@ char help_str[]="-b pathname True if pathname resolves to en existing directory 
 "-z string True if the length of string string is zero; otherwise, false.\n"
 "string True if the string string is not the null string; otherwise, false.\n"
 "s1 = s2 True if the strings s1 and s2 are identical; otherwise, false.\n"
-"s1 != s2 True if the strings s1 and s2 are not identical; otherwise, false.\n";
+"s1 != s2 True if the strings s1 and s2 are not identical; otherwise, false.";
 int main(int argc, char *argv[]){
 	while((ch=getopt(argc, argv, "bcdefgkLprsStuwxznh"))!= -1){
 	switch (ch) {

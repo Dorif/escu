@@ -9,7 +9,8 @@ char help_str[]="Usage: ln [-fs] [-L|-P] source_file target_file\n"
 "-f Force existing destination pathnames to be removed to allow the link.\n"
 "-L For each source_file operand that names a file of type symbolic link, create a hardlink to the file referenced by the symbolic link.\n"
 "-P For each source_file operand that names a file of type symbolic link, create a hardlink to the symbolic link itself.\n"
-"-s Create symbolic links instead of hard links. If the -s option is specified, the -L and -P options are ignored.\n";
+"-s Create symbolic links instead of hard links. If the -s option is specified, the -L and -P options are ignored.",
+progname[]="ln";
 int main(int argc, char** argv){
 	while((ch=getopt(argc, argv, "fsLP"))!= -1){
 	switch (ch) {
@@ -37,25 +38,22 @@ int main(int argc, char** argv){
 		stat(argv[0], &from);
 		stat(argv[1], &to);
 		if(from.st_ino == to.st_ino){
-			write(STDERR_FILENO, argv[0], strlen(argv[0]));
-			write(STDERR_FILENO, " and ", 5);
-			write(STDERR_FILENO, argv[1], strlen(argv[1]));
-			write(STDERR_FILENO, " are the same file.\n", 20);
+			printf("%s and %s are the same file.\n", argv[0], argv[1]);
 			_exit(1);
 		}
 	}
 	if(force)unlink(argv[1]);
 	if(symbolic){
-		if(symlink(argv[0], argv[1]))ferr();
+		if(symlink(argv[0], argv[1]))ferr(progname);
 	}
 	else {
 		if(P){
-			if(linkat(AT_FDCWD, argv[0], AT_FDCWD, argv[1],0))ferr();
+			if(linkat(AT_FDCWD, argv[0], AT_FDCWD, argv[1],0))ferr(progname);
 		}
 		else if(L){
-			if(linkat(AT_FDCWD, argv[0], AT_FDCWD, argv[1],AT_SYMLINK_FOLLOW))ferr();
+			if(linkat(AT_FDCWD, argv[0], AT_FDCWD, argv[1],AT_SYMLINK_FOLLOW))ferr(progname);
 		}
-		else if(link(argv[0], argv[1]))ferr();
+		else if(link(argv[0], argv[1]))ferr(progname);
 	}
 	_exit(0);
 }

@@ -10,7 +10,8 @@ char help_str[]="Usage: uname [-amnrsv]\n"
 "-n Write the name of this node within an implementation-defined communications network.\n"
 "-r Write the current release level of the operating system implementation.\n"
 "-s Write the name of the implementation of the operating system.\n"
-"-v Write the current version level of this release of the operating system implementation.\n";
+"-v Write the current version level of this release of the operating system implementation.",
+progname[]="uname";
 int main(int argc,char** argv){
 	while((ch=getopt(argc, argv, "amnrsv"))!= -1){
 	switch (ch) {
@@ -40,25 +41,13 @@ int main(int argc,char** argv){
 			usage(help_str);
 	}
 	}
-	if(uname(&unm))ferr();
-	if(s){
-		write(STDOUT_FILENO,unm.sysname,strlen(unm.sysname));
-		write(STDOUT_FILENO," ",1);
-	}
-	if(n){
-		write(STDOUT_FILENO,unm.nodename,strlen(unm.nodename));
-		write(STDOUT_FILENO," ",1);
-	}
-	if(r){
-		write(STDOUT_FILENO,unm.release,strlen(unm.release));
-		write(STDOUT_FILENO," ",1);
-	}
-	if(v){
-		write(STDOUT_FILENO,unm.version,strlen(unm.version));
-		write(STDOUT_FILENO," ",1);
-	}
-	if(m)write(STDOUT_FILENO,unm.machine,strlen(unm.machine));
-	if(!s & !n & !r & !v & !m)write(STDOUT_FILENO,unm.sysname,strlen(unm.sysname));
-	write(STDOUT_FILENO,"\n",1);
+	if(uname(&unm))ferr(progname);
+	if(s)printf("%s ",unm.sysname);
+	if(n)printf("%s ",unm.nodename);
+	if(r)printf("%s ",unm.release);
+	if(v)printf("%s ",unm.version);
+	if(m)printf("%s ",unm.machine);
+	if(!s & !n & !r & !v & !m)printf("%s",unm.sysname);
+	printf("\n");
 	_exit(0);
 }

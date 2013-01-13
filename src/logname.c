@@ -4,12 +4,10 @@
 #include "coreutils.h"
 struct passwd *pwd;
 uid_t uid;
+char progname[]="logname";
 int main(){
 	uid=geteuid();
-	if((pwd = getpwuid (uid))==NULL)ferr();
-	else {
-		write(STDOUT_FILENO,pwd->pw_name,strlen(pwd->pw_name));
-		write(STDOUT_FILENO,"\n",1);
-	}
+	if((pwd = getpwuid (uid))==NULL)ferr(progname);
+	else puts(pwd->pw_name);
 	_exit(0);
 }

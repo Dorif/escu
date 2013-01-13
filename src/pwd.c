@@ -1,8 +1,9 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <stdlib.h>
+#include <string.h>
 #include "coreutils.h"
-char help_str[]="Usage: pwd [-L|-P]\n",*p;
+char help_str[]="Usage: pwd [-L|-P]",*p, progname[]="pwd";
 int ch;
 short L=1;
 int main(int argc, char** argv){
@@ -28,8 +29,7 @@ int main(int argc, char** argv){
 	}
 	else p = NULL;
 	if (p == NULL) p = getcwd(NULL, 0);
-	if (p == NULL)ferr();
-	write(STDOUT_FILENO,p,strlen(p));
-	write(STDOUT_FILENO,"\n",1);
+	if (p == NULL)ferr(progname);
+	puts(p);
 	_exit(0);
 }

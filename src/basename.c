@@ -1,9 +1,10 @@
 #include <unistd.h>
+#include <string.h>
 #include <libgen.h>
 #include "coreutils.h"
 int baselen, suflen;
 char *base, help_str[]="Usage: basename string [suffix]\n"
-"Returns non-directory portion of a pathname.\n";
+"Returns non-directory portion of a pathname.";
 int main(int argc, char** argv){
 	if(argc < 2 || argc > 3)usage(help_str);
 	base = basename(argv[1]);
@@ -15,7 +16,6 @@ int main(int argc, char** argv){
 			if (strcmp(base + off, argv[2]) == 0)write(STDOUT_FILENO, base, off);
 		}
 	}
-	else write(STDOUT_FILENO, base, strlen(base));
-	write(STDOUT_FILENO,"\n", 1);
+	else printf("%s\n", base);
 	_exit(0);
 }
