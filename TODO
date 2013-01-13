@@ -1,1 +1,1 @@
-test, ls, mkfifo and basename not fully implemented at the moment.
+test, ls and mkfifo not fully implemented at the moment.
