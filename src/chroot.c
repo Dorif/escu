@@ -11,6 +11,8 @@ int main(int argc, char** argv){
 /*Only root can use chroot command. Root UID is always 0.*/
 	if(getuid()!=0){
 		errno=EPERM;
+		char you_must_be_root[]="You must be root to use chroot utility.\n";
+		write(STDERR_FILENO, you_must_be_root, sizeof(you_must_be_root));
 		ferr(progname);
 	}
 /*if chroot impossible - write error message to stderr and terminate the program*/

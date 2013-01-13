@@ -10,7 +10,8 @@ char help_str[]="Usage: uname [-amnrsv]\n"
 "-n Write the name of this node within an implementation-defined communications network.\n"
 "-r Write the current release level of the operating system implementation.\n"
 "-s Write the name of the implementation of the operating system.\n"
-"-v Write the current version level of this release of the operating system implementation.",
+"-v Write the current version level of this release of the operating system implementation.\n"
+"If no option is specified, uname behaves as if -s option was specified.",
 progname[]="uname";
 int main(int argc,char** argv){
 	while((ch=getopt(argc, argv, "amnrsv"))!= -1){
@@ -42,12 +43,23 @@ int main(int argc,char** argv){
 	}
 	}
 	if(uname(&unm))ferr(progname);
-	if(s)printf("%s ",unm.sysname);
-	if(n)printf("%s ",unm.nodename);
-	if(r)printf("%s ",unm.release);
-	if(v)printf("%s ",unm.version);
-	if(m)printf("%s ",unm.machine);
-	if(!s & !n & !r & !v & !m)printf("%s",unm.sysname);
-	printf("\n");
+	if(s || (!s & !n & !r & !v & !m)){
+		printf("%s",unm.sysname);
+		if(n || r || v || m)printf(" ");
+	}
+	if(n){
+		printf("%s",unm.nodename);
+		if(r || v || m)printf(" ");
+	}
+	if(r){
+		printf("%s",unm.release);
+		if(v || m)printf(" ");
+	}
+	if(v){
+		printf("%s",unm.version);
+		if(m)printf(" ");
+	}
+	if(m)printf("%s",unm.machine);
+	putchar('\n');
 	_exit(0);
 }
