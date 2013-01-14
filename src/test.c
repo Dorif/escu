@@ -92,111 +92,111 @@ int main(int argc, char *argv[]){
 		case 0:{
 			if(argc==0)usage(help_str);
 			if(argc==1){
-				if(strlen(argv[0]))exit(0);
-				else exit(1);
+				if(strlen(argv[0]))_exit(0);
+				else _exit(1);
 			}
 			if(argc==3){
 				if(!(strcoll(argv[1],"="))){
-					if(strcoll(argv[0],argv[2]))exit(1);
-					else exit(0);
+					if(strcoll(argv[0],argv[2]))_exit(1);
+					else _exit(0);
 				}
 				if(!(strcoll(argv[1],"!="))){
-					if(strcoll(argv[0],argv[2]))exit(0);
-					else exit(1);
+					if(strcoll(argv[0],argv[2]))_exit(0);
+					else _exit(1);
 				}
 			}
 		}
 		case 1:{
-			if(stat(argv[0], &fs))exit(1);
-			if(S_ISBLK(fs.st_mode))exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(S_ISBLK(fs.st_mode))_exit(0);
+			else _exit(1);
 		}
 		case 2:{
-			if(stat(argv[0], &fs))exit(1);
-			if(S_ISCHR(fs.st_mode))exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(S_ISCHR(fs.st_mode))_exit(0);
+			else _exit(1);
 		}
 		case 3:{
-			if(stat(argv[0], &fs))exit(1);
-			if(S_ISDIR(fs.st_mode))exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(S_ISDIR(fs.st_mode))_exit(0);
+			else _exit(1);
 		}
 		case 4:{
-			if(access(argv[0], F_OK))exit(1);
-			else exit(0);
+			if(access(argv[0], F_OK))_exit(1);
+			else _exit(0);
 		}
 		case 5:{
-			if(stat(argv[0], &fs))exit(1);
-			if(S_ISREG(fs.st_mode))exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(S_ISREG(fs.st_mode))_exit(0);
+			else _exit(1);
 		}
 		case 6:{
-			if(stat(argv[0], &fs))exit(1);
-			if(fs.st_mode & S_ISGID != 0)exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(fs.st_mode & S_ISGID != 0)_exit(0);
+			else _exit(1);
 		}
 		case 7:{
-			if(stat(argv[0], &fs))exit(1);
-			if(fs.st_mode & S_ISVTX != 0)exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(fs.st_mode & S_ISVTX != 0)_exit(0);
+			else _exit(1);
 		}
 		case 8:{
-			if(stat(argv[0], &fs))exit(1);
-			if(S_ISLNK(fs.st_mode))exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(S_ISLNK(fs.st_mode))_exit(0);
+			else _exit(1);
 		}
 		case 9:{
-			if(stat(argv[0], &fs))exit(1);
-			if(S_ISFIFO(fs.st_mode))exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(S_ISFIFO(fs.st_mode))_exit(0);
+			else _exit(1);
 		}
 		case 10:{
-			if(stat(argv[0], &fs))exit(1);
-			if(fs.st_mode & S_IRUSR != 0)exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(fs.st_mode & S_IRUSR != 0)_exit(0);
+			else _exit(1);
 		}
 		case 11:{
-			if(stat(argv[0], &fs))exit(1);
-			if(fs.st_size > 0)exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(fs.st_size > 0)_exit(0);
+			else _exit(1);
 		}
 		case 12:{
-			if(stat(argv[0], &fs))exit(1);
-			if(fs.st_mode & S_IFSOCK != 0)exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(fs.st_mode & S_IFSOCK != 0)_exit(0);
+			else _exit(1);
 		}
 		case 13:{
 			if(argc){
-				if(isatty(atoi(argv[0])))exit(0);
-				else exit(1);
+				if(isatty(atoi(argv[0])))_exit(0);
+				else _exit(1);
 			}
 			else {
-				if(isatty(STDOUT_FILENO))exit(0);
-				else exit(1);
+				if(isatty(STDOUT_FILENO))_exit(0);
+				else _exit(1);
 			}
 		}
 		case 14:{
-			if(stat(argv[0], &fs))exit(1);
-			if(fs.st_mode & S_ISUID != 0)exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(fs.st_mode & S_ISUID != 0)_exit(0);
+			else _exit(1);
 		}
 		case 15:{
-			if(stat(argv[0], &fs))exit(1);
-			if(fs.st_mode & S_IWUSR != 0)exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(fs.st_mode & S_IWUSR != 0)_exit(0);
+			else _exit(1);
 		}
 		case 16:{
-			if(stat(argv[0], &fs))exit(1);
-			if(fs.st_mode & S_IXUSR != 0)exit(0);
-			else exit(1);
+			if(stat(argv[0], &fs))_exit(1);
+			if(fs.st_mode & S_IXUSR != 0)_exit(0);
+			else _exit(1);
 		}
 		case 17:{
-			if(strlen(argv[0]))exit(1);
-			else exit(0);
+			if(strlen(argv[0]))_exit(1);
+			else _exit(0);
 		}
 		case 18:{
-			if(strlen(argv[0]))exit(0);
-			else exit(1);
+			if(strlen(argv[0]))_exit(0);
+			else _exit(1);
 		}
 	}
 }
