@@ -27,5 +27,5 @@ int main(int argc, char** argv){
 		if((shell=getenv("SHELL"))==NULL || *shell == '\0')shell="/bin/sh";
 		if(execlp(shell, shell, "-i", (char *)NULL))ferr(progname);
 	}
-	_exit(0);
+	return 0;
 }

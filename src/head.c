@@ -38,5 +38,5 @@ int main(int argc, char** argv){
 		putchar('\n');
 		close(fd);
 	}
-_exit(0);
+return 0;
 }

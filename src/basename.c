@@ -17,5 +17,5 @@ int main(int argc, char** argv){
 		}
 	}
 	else printf("%s\n", base);
-	_exit(0);
+	return 0;
 }

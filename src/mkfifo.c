@@ -25,5 +25,5 @@ int main(int argc, char** argv){
 	for(;filenum<argc;++filenum){
 		if(mkfifo(argv[filenum],rights))ferr(progname);
 	}
-	_exit(0);
+	return 0;
 }

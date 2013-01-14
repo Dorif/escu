@@ -31,5 +31,5 @@ int main(int argc, char** argv){
 	if (p == NULL) p = getcwd(NULL, 0);
 	if (p == NULL)ferr(progname);
 	puts(p);
-	_exit(0);
+	return 0;
 }

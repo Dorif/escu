@@ -100,8 +100,8 @@ int main(int argc, char** argv){
 	dir=opendir(argv[filenum]);
 	ls(dir);
 	}
-	write(STDOUT_FILENO,"\n",1);
-	_exit(0);
+	putchar('\n');
+	return 0;
 }
 void ls(DIR *d){
 	struct stat fs;
@@ -111,45 +111,45 @@ void ls(DIR *d){
 	if(!shh & !strncmp(ent->d_name, ".",1))continue;
 	if(!shdd & (!strcmp(ent->d_name, ".") || !strcmp(ent->d_name, "..")))continue;
 	if(shr){
-		if(fs.st_mode & S_IFDIR)write(STDOUT_FILENO,"d",1);
-		else write(STDOUT_FILENO,"-",1);
-		if(fs.st_mode & S_IRUSR)write(STDOUT_FILENO,"r",1);
-		else write(STDOUT_FILENO,"-",1);
-		if(fs.st_mode & S_IWUSR)write(STDOUT_FILENO,"w",1);
-		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IFDIR)putchar('d');
+		else putchar('-');
+		if(fs.st_mode & S_IRUSR)putchar('r');
+		else putchar('-');
+		if(fs.st_mode & S_IWUSR)putchar('w');
+		else putchar('-');
 		if(fs.st_mode & S_IXUSR){
-			if(fs.st_mode & S_ISUID)write(STDOUT_FILENO,"s",1);
-			else write(STDOUT_FILENO,"x",1);
+			if(fs.st_mode & S_ISUID)putchar('s');
+			else putchar('x');
 		}
 		else {
-			if(fs.st_mode & S_ISUID)write(STDOUT_FILENO,"S",1);
-			else write(STDOUT_FILENO,"-",1);
+			if(fs.st_mode & S_ISUID)putchar('S');
+			else putchar('-');
 		}
-		if(fs.st_mode & S_IRGRP)write(STDOUT_FILENO,"r",1);
-		else write(STDOUT_FILENO,"-",1);
-		if(fs.st_mode & S_IWGRP)write(STDOUT_FILENO,"w",1);
-		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IRGRP)putchar('r');
+		else putchar('-');
+		if(fs.st_mode & S_IWGRP)putchar('w');
+		else putchar('-');
 		if(fs.st_mode & S_IXGRP){
-			if(fs.st_mode & S_ISUID)write(STDOUT_FILENO,"s",1);
-			else write(STDOUT_FILENO,"x",1);
+			if(fs.st_mode & S_ISUID)putchar('s');
+			else putchar('x');
 		}
 		else {
-			if(fs.st_mode & S_ISUID)write(STDOUT_FILENO,"S",1);
-			else write(STDOUT_FILENO,"-",1);
+			if(fs.st_mode & S_ISUID)putchar('S');
+			else putchar('-');
 		}
-		if(fs.st_mode & S_IROTH)write(STDOUT_FILENO,"r",1);
-		else write(STDOUT_FILENO,"-",1);
-		if(fs.st_mode & S_IWOTH)write(STDOUT_FILENO,"w",1);
-		else write(STDOUT_FILENO,"-",1);
+		if(fs.st_mode & S_IROTH)putchar('r');
+		else putchar('-');
+		if(fs.st_mode & S_IWOTH)putchar('w');
+		else putchar('-');
 		if(fs.st_mode & S_IXOTH){
-			if((fs.st_mode & S_IFDIR) & (fs.st_mode & S_ISVTX))write(STDOUT_FILENO,"t",1);
-			else write(STDOUT_FILENO,"x",1);
+			if((fs.st_mode & S_IFDIR) & (fs.st_mode & S_ISVTX))putchar('t');
+			else putchar('x');
 		}
 		else {
-			if((fs.st_mode & S_IFDIR) & (fs.st_mode & S_ISVTX))write(STDOUT_FILENO,"T",1);
-			else write(STDOUT_FILENO,"-",1);
+			if((fs.st_mode & S_IFDIR) & (fs.st_mode & S_ISVTX))putchar('T');
+			else putchar('-');
 		}
-		write(STDOUT_FILENO," ",1);
+		putchar(' ');
 	}
 	if(!nsu&shu){
 		struct passwd *pw;
@@ -194,18 +194,18 @@ void ls(DIR *d){
 		write(STDOUT_FILENO," ",1);
 	}
 	write(STDOUT_FILENO, ent->d_name, strlen(ent->d_name));
-	if((sht || shd) & S_ISDIR(fs.st_mode))write(STDOUT_FILENO,"/",1);
+	if((sht || shd) & S_ISDIR(fs.st_mode))putchar('/');
 	if(sht){
-	if(S_ISLNK(fs.st_mode))write(STDOUT_FILENO,"@",1);
-	if(S_ISFIFO(fs.st_mode))write(STDOUT_FILENO,"|",1);
-	if(S_IXUSR & fs.st_mode)write(STDOUT_FILENO,"*",1);
-	if(S_IFSOCK & fs.st_mode)write(STDOUT_FILENO,"=",1);
+	if(S_ISLNK(fs.st_mode))putchar('@');
+	if(S_ISFIFO(fs.st_mode))putchar('|');
+	if(S_IXUSR & fs.st_mode)putchar('*');
+	if(S_IFSOCK & fs.st_mode)putchar('=');
 	}
 	struct dirent *chk;
 	if(chk=readdir(d)){
-		if(wre)write(STDOUT_FILENO,"\n",1);
+		if(wre)putchar('\n');
 		else if(wrc)write(STDOUT_FILENO,", ",2);
-			else write(STDOUT_FILENO,"\t",1);
+			else putchar('\t');
 	}
 	}
 }

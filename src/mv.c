@@ -35,5 +35,5 @@ int main(int argc, char** argv){
 		else exit(0);
 	}
 	else if(rename(argv[0], argv[1]))ferr(progname);
-	exit(0);
+	return 0;
 }

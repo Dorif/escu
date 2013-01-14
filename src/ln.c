@@ -55,5 +55,5 @@ int main(int argc, char** argv){
 		}
 		else if(link(argv[0], argv[1]))ferr(progname);
 	}
-	_exit(0);
+	return 0;
 }

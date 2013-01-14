@@ -5,5 +5,5 @@ progname[]="link";
 int main(int argc, char** argv){
 	if(argc>3)usage(help_str);
 	if(link(argv[1], argv[2]))ferr(progname);
-	_exit(0);
+	return 0;
  }

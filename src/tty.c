@@ -4,5 +4,5 @@ char *tty, progname[]="tty";
 int main(){
 	if((tty=ttyname(STDIN_FILENO))==NULL)ferr(progname);
 	puts(tty);
-	_exit(0);
+	return 0;
 }

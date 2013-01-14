@@ -61,5 +61,5 @@ int main(int argc,char** argv){
 	}
 	if(m)printf("%s",unm.machine);
 	putchar('\n');
-	_exit(0);
+	return 0;
 }

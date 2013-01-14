@@ -9,5 +9,5 @@ int main(){
 	uid=geteuid();
 	if((pwd = getpwuid (uid))==NULL)ferr(progname);
 	else puts(pwd->pw_name);
-	_exit(0);
+	return 0;
 }
