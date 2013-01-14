@@ -13,7 +13,10 @@ int main(int argc, char** argv){
 		baselen = strlen(base);
 		if (suflen < baselen) {
 			int off = baselen - suflen;
-			if (strcmp(base + off, argv[2]) == 0)write(STDOUT_FILENO, base, off);
+			if (strcmp(base + off, argv[2]) == 0){
+				write(STDOUT_FILENO, base, off);
+				putchar('\n');
+			}
 		}
 	}
 	else printf("%s\n", base);
