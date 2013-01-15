@@ -8,14 +8,8 @@ progname[]="chroot";
 int main(int argc, char** argv){
 /*If even new root directory isn't specified - show usage info and terminate the program*/
 	if(argc==1)usage(help_str);
-/*Only root can use chroot command. Root UID is always 0.*/
-	if(getuid()!=0){
-		errno=EPERM;
-		char you_must_be_root[]="You must be root to use chroot utility.\n";
-		write(STDERR_FILENO, you_must_be_root, sizeof(you_must_be_root));
-		ferr(progname);
-	}
-/*if chroot impossible - write error message to stderr and terminate the program*/
+/*If chroot impossible - write error message to stderr and terminate the program*/
+/*Error also appears if user isn't root - only root can use chroot.*/
 	if(chroot(argv[1]) || chdir("/"))ferr(progname);
 	if(argv[2]){
 /*If program, specified in second argument cannot be found or executed in new root - write error message and terminate the program.*/
