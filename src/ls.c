@@ -25,7 +25,8 @@ char help_str[]="ls [-GFil][-go][files]\n"
 "-a Write out all directory entries, including those whose names begin with a '.'.\n"
 "-u Use time of last access instead of last modification of the file for writing.\n"
 "-m Stream output format; list files across the page, separated by commas.\n"
-"-n The same as -l, except that the owner's UID and GID numbers shall be written, rather than the associated character strings.";
+"-n The same as -l, except that the owner's UID and GID numbers shall be written, rather than the associated character strings.",
+progname[]="ls";
 int main(int argc, char** argv){
 	while((ch=getopt(argc, argv, "loGFgi1cpaAumn"))!= -1){
         switch (ch) {
@@ -107,7 +108,7 @@ void ls(DIR *d){
 	struct stat fs;
 	struct dirent *ent;
 	while(ent=readdir(d)){
-	stat(ent->d_name,&fs);
+	if(stat(ent->d_name,&fs))ferr(progname);
 	if(!shh & !strncmp(ent->d_name, ".",1))continue;
 	if(!shdd & (!strcmp(ent->d_name, ".") || !strcmp(ent->d_name, "..")))continue;
 	if(shr){
@@ -154,44 +155,24 @@ void ls(DIR *d){
 	if(!nsu&shu){
 		struct passwd *pw;
 		pw=getpwuid(fs.st_uid);
-		write(STDOUT_FILENO,pw->pw_name, strlen(pw->pw_name));
-		write(STDOUT_FILENO," ",1);
+		printf("%s ",pw->pw_name);
 		}
 	if(!nsg&shg){
 		struct group *grp;
 		grp=getgrgid(fs.st_gid);
-		write(STDOUT_FILENO,grp->gr_name,strlen(grp->gr_name));
-		write(STDOUT_FILENO," ",1);
+		printf("%s ",grp->gr_name);
 		}
-	if(!nsu&sui){
-		char *uid;
-		uid=itoa(fs.st_uid);
-		write(STDOUT_FILENO,uid, strlen(uid));
-		write(STDOUT_FILENO," ",1);
-		}
-	if(!nsg&sgi){
-		char *gid;
-		gid=itoa(fs.st_gid);
-		write(STDOUT_FILENO,gid,strlen(gid));
-		write(STDOUT_FILENO," ",1);
-		}
-	if(shs){
-		char *size=itoa(fs.st_size);
-		write(STDOUT_FILENO,size,strlen(size));
-		write(STDOUT_FILENO," ",1);
-	}
-	if(shi){
-		char *inode=itoa(fs.st_ino);
-		write(STDOUT_FILENO,inode,strlen(inode));
-		write(STDOUT_FILENO," ",1);
-	}
+	if(!nsu&sui)printf("%i ",fs.st_uid);
+	if(!nsg&sgi)printf("%i ",fs.st_gid);
+	if(shs)printf("%li ",fs.st_size);
+	if(shi)printf("%li ",fs.st_ino);
 	if(smt){
 		char *mt;
 		if(shc)mt=ctime(&fs.st_ctime);
 		else if(sat) mt=ctime(&fs.st_atime);
 			else mt=ctime(&fs.st_mtime);
 		write(STDOUT_FILENO,mt,strlen(mt)-1);
-		write(STDOUT_FILENO," ",1);
+		putchar(' ');
 	}
 	write(STDOUT_FILENO, ent->d_name, strlen(ent->d_name));
 	if((sht || shd) & S_ISDIR(fs.st_mode))putchar('/');
@@ -204,7 +185,7 @@ void ls(DIR *d){
 	struct dirent *chk;
 	if(chk=readdir(d)){
 		if(wre)putchar('\n');
-		else if(wrc)write(STDOUT_FILENO,", ",2);
+		else if(wrc)printf(", ");
 			else putchar('\t');
 	}
 	}

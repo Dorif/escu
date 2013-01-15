@@ -10,10 +10,3 @@ void usage(char *hs){
 	puts(hs);
 	_exit(0);
 }
-char* itoa(unsigned int val){
-/*Conversion from decimal integer to char.*/
-	static char buf[11];
-	int i=10;
-	for(;val&&i;--i,val/=10)buf[i]=val%10+48;
-	return &buf[i+1];
-}
