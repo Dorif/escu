@@ -25,7 +25,7 @@ int main(int argc, char** argv){
 	if(L){
 		struct stat s_pwd, s_dot;
 		p = getenv("PWD");
-		if (p[0] != '/'|| strstr(p, "/./") != NULL || strstr(p, "/../") != NULL || stat(p, &s_pwd) || stat(".", &s_dot) || s_pwd.st_dev != s_dot.st_dev || s_pwd.st_ino != s_dot.st_ino)p = NULL;
+		if (p == NULL || p[0] != '/'|| strstr(p, "/./") != NULL || strstr(p, "/../") != NULL || stat(p, &s_pwd) || stat(".", &s_dot) || s_pwd.st_dev != s_dot.st_dev || s_pwd.st_ino != s_dot.st_ino)p = NULL;
 	}
 	else p = NULL;
 	if (p == NULL) p = getcwd(NULL, 0);
