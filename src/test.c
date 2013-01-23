@@ -4,7 +4,7 @@
 #include <string.h>
 #include "coreutils.h"
 int ch;
-short sel=0;
+short sel=0, no=0, eq=0, eq1=0, great=0, less=0, thn=0;
 struct stat fs;
 char help_str[]="-b pathname True if pathname resolves to en existing directory entry for a block special file. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that is not a block special file.\n"
 "-c pathname True if pathname resolves to an existing directory entry for a character special file. False if pathname cannot be resolved, or if pathname resolves to an existing directory entry for a file that is not a character special file.\n"
@@ -27,7 +27,7 @@ char help_str[]="-b pathname True if pathname resolves to en existing directory 
 "s1 = s2 True if the strings s1 and s2 are identical; otherwise, false.\n"
 "s1 != s2 True if the strings s1 and s2 are not identical; otherwise, false.";
 int main(int argc, char *argv[]){
-	while((ch=getopt(argc, argv, "bcdefgkLprsStuwxznh"))!= -1){
+	while((ch=getopt(argc, argv, "bcdefgkLprsStuwxznhlq"))!= -1){
 	switch (ch) {
 		case 'b':
 			sel=1;
@@ -40,12 +40,14 @@ int main(int argc, char *argv[]){
 			break;
 		case 'e':
 			sel=4;
+			eq=1;
 			break;
 		case 'f':
 			sel=5;
 			break;
 		case 'g':
 			sel=6;
+			great=1;
 			break;
 		case 'k':
 			sel=7;
@@ -54,8 +56,14 @@ int main(int argc, char *argv[]){
 		case 'L':
 			sel=8;
 			break;
+		case 'l':
+			less=1;
+			break;
 		case 'p':
 			sel=9;
+			break;
+		case 'q':
+			eq1=1;
 			break;
 		case 'r':
 			sel=10;
@@ -68,6 +76,7 @@ int main(int argc, char *argv[]){
 			break;
 		case 't':
 			sel=13;
+			thn=1;
 			break;
 		case 'u':
 			sel=14;
@@ -83,11 +92,36 @@ int main(int argc, char *argv[]){
 			break;
 		case 'n':
 			sel=18;
+			no=1;
 			break;
 	}
 	}
 	argv+=optind;
 	argc-=optind;
+	if(no & eq){
+		if(atol(argv[0]) != atol(argv[1]))_exit(0);
+		else _exit(1);
+	}
+	if(less & eq){
+		if(atol(argv[0]) <= atol(argv[1]))_exit(0);
+		else _exit(1);
+	}
+	if(great & eq){
+		if(atol(argv[0]) >= atol(argv[1]))_exit(0);
+		else _exit(1);
+	}
+	if(eq1 & eq){
+		if(atol(argv[0]) == atol(argv[1]))_exit(0);
+		else _exit(1);
+	}
+	if(great & thn){
+		if(atol(argv[0]) > atol(argv[1]))_exit(0);
+		else _exit(1);
+	}
+	if(less & thn){
+		if(atol(argv[0]) < atol(argv[1]))_exit(0);
+		else _exit(1);
+	}
 	switch (sel) {
 		case 0:{
 			if(argc==0)usage(help_str);

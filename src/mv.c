@@ -32,7 +32,6 @@ int main(int argc, char** argv){
 		int responce;
 		responce=getchar();
 		if((responce=='y'||responce=='Y')&&(rename(argv[0], argv[1])))ferr(progname);
-		else exit(0);
 	}
 	else if(rename(argv[0], argv[1]))ferr(progname);
 	return 0;
