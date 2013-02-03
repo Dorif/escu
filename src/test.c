@@ -25,7 +25,13 @@ char help_str[]="-b pathname True if pathname resolves to en existing directory 
 "-z string True if the length of string string is zero; otherwise, false.\n"
 "string True if the string string is not the null string; otherwise, false.\n"
 "s1 = s2 True if the strings s1 and s2 are identical; otherwise, false.\n"
-"s1 != s2 True if the strings s1 and s2 are not identical; otherwise, false.";
+"s1 != s2 True if the strings s1 and s2 are not identical; otherwise, false.\n"
+"n1 -eq  n2 True if the integers n1 and n2 are algebraically equal; otherwise, false.\n"
+"n1 -ne  n2 True if the integers n1 and n2 are not algebraically equal; otherwise, false.\n"
+"n1 -gt  n2 True if the integer n1 is algebraically greater than the integer n2; otherwise, false.\n"
+"n1 -ge  n2 True if the integer n1 is algebraically greater than or equal to the integer n2; otherwise, false.\n"
+"n1 -lt  n2 True if the integer n1 is algebraically less than the integer n2; otherwise, false.\n"
+"n1 -le  n2 True if the integer n1 is algebraically less than or equal to the integer n2; otherwise, false.";
 int main(int argc, char *argv[]){
 	while((ch=getopt(argc, argv, "bcdefgkLprsStuwxznhlq"))!= -1){
 	switch (ch) {
