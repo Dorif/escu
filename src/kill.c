@@ -19,7 +19,8 @@ int main(int argc, char** argv){
 		i++;
 	}
 	if(!strcmp(option, "-S")){
-	if(!strcmp(argv[2], "SIGHUP") || !strcmp(argv[2], "HUP") || !strcmp(argv[2], "1"))sig = SIGHUP;
+	if(!strcmp(argv[2], "0"))sig = 0;
+	else if(!strcmp(argv[2], "SIGHUP") || !strcmp(argv[2], "HUP") || !strcmp(argv[2], "1"))sig = SIGHUP;
 	else if(!strcmp(argv[2], "SIGINT") || !strcmp(argv[2], "INT") || !strcmp(argv[2], "2"))sig = SIGINT;
 	else if(!strcmp(argv[2], "SIGQUIT") || !strcmp(argv[2], "QUIT") || !strcmp(argv[2], "3"))sig = SIGQUIT;
 	else if(!strcmp(argv[2], "SIGABRT") || !strcmp(argv[2], "ABRT") || !strcmp(argv[2], "6"))sig = SIGABRT;
@@ -42,7 +43,8 @@ int main(int argc, char** argv){
 	_exit(0);
 	}
 	else{
-		if(!strcmp(option, "-SIGHUP") || !strcmp(option, "-HUP") || !strcmp(option, "-1"))sig = SIGHUP;
+		if(!strcmp(argv[2], "-0"))sig = 0;
+		else if(!strcmp(option, "-SIGHUP") || !strcmp(option, "-HUP") || !strcmp(option, "-1"))sig = SIGHUP;
 		else if(!strcmp(option, "-SIGINT") || !strcmp(option, "-INT") || !strcmp(option, "-2"))sig = SIGINT;
 		else if(!strcmp(option, "-SIGQUIT") || !strcmp(option, "-QUIT") || !strcmp(option, "-3"))sig = SIGQUIT;
 		else if(!strcmp(option, "-SIGABRT") || !strcmp(option, "-ABRT") || !strcmp(option, "-6"))sig = SIGABRT;
