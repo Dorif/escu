@@ -5,6 +5,7 @@ all:
 	$(CC) -o bin/dirname src/dirname.c
 	$(CC) -o bin/false src/false.c
 	$(CC) -o bin/head src/head.c
+	$(CC) -o bin/kill src/kill.c
 	$(CC) -o bin/link src/link.c
 	$(CC) -o bin/ln src/ln.c
 	$(CC) -o bin/logname src/logname.c

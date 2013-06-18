@@ -167,14 +167,14 @@ void ls(DIR *d){
 	if(shs)printf("%li ",fs.st_size);
 	if(shi)printf("%li ",fs.st_ino);
 	if(smt){
-		char *mt;
+		char *mt, mtn;
 		if(shc)mt=ctime(&fs.st_ctime);
 		else if(sat) mt=ctime(&fs.st_atime);
 			else mt=ctime(&fs.st_mtime);
-		write(STDOUT_FILENO,mt,strlen(mt)-1);
-		putchar(' ');
+		strncat(&mtn, mt, strlen(mt)-1);
+		printf("%s ",&mtn);
 	}
-	write(STDOUT_FILENO, ent->d_name, strlen(ent->d_name));
+	printf("%s", ent->d_name);
 	if((sht || shd) & S_ISDIR(fs.st_mode))putchar('/');
 	if(sht){
 	if(S_ISLNK(fs.st_mode))putchar('@');
